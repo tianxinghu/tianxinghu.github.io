@@ -1,0 +1,8 @@
+# Original photos — keep out of the public repo
+*.jpeg
+*.jpg
+*.heic
+*.HEIC
+*.png
+*.pdf
+.DS_Store

@@ -130,7 +130,6 @@
       flex-direction: column;
       justify-content: flex-end;
       padding: 48px 48px 96px;
-      overflow: hidden;
     }
     .hero::before {
       content: "";
@@ -143,15 +142,24 @@
         radial-gradient(ellipse 35% 50% at 92% 90%, var(--sage), transparent 70%);
       opacity: 0.9;
     }
-    .plate {
+    /* Cat lying on the rule under the hero: its flat belly sits at 68% of the
+       image height (aspect 1100x599), so drop it by 32% of its height. */
+    .hero-cat {
+      --w: clamp(260px, 34vw, 500px);
       position: absolute;
-      z-index: -1;
-      right: 4vw;
-      bottom: -2vh;
-      height: min(88%, 760px);
-      width: auto;
+      z-index: 1;
+      width: var(--w);
+      height: auto;
+      right: max(48px, calc(100% - 1148px));
+      bottom: calc(var(--w) * -0.135);
       animation: rise 1.6s cubic-bezier(.2, .7, .2, 1) both;
     }
+    .about-grid { display: grid; grid-template-columns: 1fr 220px; gap: 40px; align-items: end; }
+    .about-cat { margin: 0; }
+    .about-cat img { display: block; width: 100%; height: auto; }
+    .about-cat figcaption { margin-top: 8px; text-align: center; }
+    footer { position: relative; }
+    .footer-cats { position: absolute; bottom: 100%; right: 48px; height: 96px; width: auto; }
     @keyframes rise {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: none; }
@@ -272,8 +280,11 @@
       .links { display: none; }
       .actions .btn:not(.solid) { display: none; }
       .brand { font-size: 12px; }
-      .hero { padding: 56px 16px 56px; min-height: 0; justify-content: flex-start; }
-      .plate { position: relative; right: auto; bottom: auto; align-self: flex-end; width: 78%; max-width: 360px; height: auto; margin: 8px -8px 8px 0; }
+      .hero { padding: 56px 16px 0; min-height: 0; justify-content: flex-start; }
+      .hero-cat { --w: min(82vw, 380px); position: relative; right: auto; bottom: auto; align-self: flex-end; margin: 32px 0 calc(var(--w) * -0.135); }
+      .about-grid { grid-template-columns: 1fr; gap: 28px; }
+      .about-cat { max-width: 220px; }
+      .footer-cats { right: 16px; height: 72px; }
       .meta { gap: 28px; }
       main { padding: 0 16px; }
       section { grid-template-columns: 1fr; gap: 16px; padding: 52px 0; }
@@ -284,13 +295,13 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .plate { animation: none; }
+      .hero-cat { animation: none; }
       html { scroll-behavior: auto; }
     }
 
     /* Print: a clean one-page résumé */
     @media print {
-      body::before, .bar, nav, .plate, .hero::before, .hero .btn, footer { display: none !important; }
+      body::before, .bar, nav, .hero-cat, .about-cat, .hero::before, .hero .btn, footer { display: none !important; }
       body { background: #fff; font-size: 11pt; }
       .hero { min-height: 0; padding: 0 0 12pt; }
       h1 { font-size: 28pt; }
@@ -335,12 +346,15 @@
     <h1>Tianxing Hu <span class="outline">CV</span></h1>
     <p class="tagline">Machine learning for biological systems — representation learning for single-cell and multi-omics data.</p>
     <div><a class="btn" href="#research">View my research ↓</a></div>
+    <img class="hero-cat" src="assets/cat-shelf.webp" width="1100" height="599" alt="Halftone print of a black cat lying on a ledge, one paw hanging over the edge">
   </header>
 
   <main>
     <section id="about">
       <div class="label"><span>01</span>About</div>
       <div>
+        <div class="about-grid">
+        <div>
         <h2>Hello — I'm Tianxing.</h2>
         <p class="lede">
           I'm a PhD student in Computer Science at Emory University working on machine learning
@@ -349,6 +363,12 @@
           data-driven models with biological knowledge. Before Emory, I spent 2.5+ years doing research
           at NJIT and UPenn in microbiome analysis, cancer genomics, and single-cell modeling.
         </p>
+        </div>
+        <figure class="about-cat">
+          <img src="assets/cat-box.webp" width="900" height="613" loading="lazy" alt="A black cat with amber eyes curled up in a fabric storage box">
+          <figcaption class="label">Lab assistant · unpaid</figcaption>
+        </figure>
+        </div>
       </div>
     </section>
 
@@ -543,6 +563,7 @@
   </main>
 
   <footer>
+    <img class="footer-cats" src="assets/cats-window.webp" width="480" height="582" loading="lazy" alt="Two black cats seen from behind, sitting side by side">
     <span class="label">© 2026 Tianxing Hu</span>
     <span class="label"><a href="mailto:hutx1213@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/tianxing-hu-ai">LinkedIn</a> · <a href="https://scholar.google.com/citations?user=0fQ4kbgAAAAJ">Google Scholar</a></span>
   </footer>
