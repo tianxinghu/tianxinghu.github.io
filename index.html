@@ -126,7 +126,7 @@
     .hero {
       --cat-w: clamp(260px, 34vw, 500px);
       position: relative;
-      min-height: min(72vh, 680px);
+      min-height: min(62vh, 600px);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -157,19 +157,18 @@
     }
     .hero-cat img { display: block; width: 100%; height: auto; }
     .hero-cat figcaption { position: absolute; top: 12%; left: 38%; }
-    /* Moon Moon in the top-left corner. She stays in the flow (auto bottom
-       margin soaks up the free space), so a short hero pushes the text down
-       instead of overlapping it. */
+    /* Moon Moon sits just above the hero text. She stays in the flow, so a
+       short hero pushes the text down instead of overlapping it. */
     .hero-moon {
       position: relative;
       align-self: flex-start;
       width: calc(var(--cat-w) * 0.42);
-      margin: 0 0 auto;
-      padding-bottom: 32px;
+      margin: 0;
+      padding-bottom: 20px;
       animation: rise 1.6s 0.35s cubic-bezier(.2, .7, .2, 1) both;
     }
     .hero-moon img { display: block; width: 100%; height: auto; }
-    .hero-moon figcaption { position: absolute; left: calc(100% + 12px); bottom: calc(32px + 12%); white-space: nowrap; }
+    .hero-moon figcaption { position: absolute; left: calc(100% + 12px); bottom: calc(20px + 12%); white-space: nowrap; }
     .about-grid { display: grid; grid-template-columns: 1fr 280px; gap: 40px; align-items: start; }
     .about-photo { margin: 0; }
     .about-photo img { display: block; width: 100%; height: auto; border-radius: 12px; }
