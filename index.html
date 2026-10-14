@@ -207,7 +207,7 @@
       padding: 72px 0;
       border-top: 1px solid var(--rule);
       max-width: 1100px;
-      scroll-margin-top: 70px;
+      scroll-margin-top: 120px;
     }
     section > .label span { color: var(--accent); margin-right: 8px; }
     h2 {
@@ -313,15 +313,12 @@
 
     .brand, .btn { white-space: nowrap; }
 
-    /* Not enough room for every section link next to the buttons:
-       move the links to their own row, scrollable if it still overflows */
-    @media (max-width: 1560px) {
-      nav { flex-wrap: wrap; row-gap: 10px; }
-      .links { order: 3; width: 100%; overflow-x: auto; scrollbar-width: none; }
-      .links::-webkit-scrollbar { display: none; }
-      .links a { flex-shrink: 0; white-space: nowrap; }
-      section { scroll-margin-top: 120px; }
-    }
+    /* Two-row nav: name + buttons on top, section links on their own row
+       (scrollable if they still overflow) */
+    nav { flex-wrap: wrap; row-gap: 10px; }
+    .links { order: 3; width: 100%; overflow-x: auto; scrollbar-width: none; }
+    .links::-webkit-scrollbar { display: none; }
+    .links a { flex-shrink: 0; white-space: nowrap; }
 
     /* Tablet & phone */
     @media (max-width: 860px) {
