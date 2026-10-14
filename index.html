@@ -151,24 +151,25 @@
       z-index: 1;
       width: var(--w);
       margin: 0;
-      right: max(48px, calc(100% - 1148px));
+      right: 48px;
       bottom: calc(var(--w) * -0.135);
       animation: rise 1.6s cubic-bezier(.2, .7, .2, 1) both;
     }
     .hero-cat img { display: block; width: 100%; height: auto; }
     .hero-cat figcaption { position: absolute; top: 12%; left: 38%; }
-    /* Moon Moon sits on the same rule, just left of Coco's head */
+    /* Moon Moon in the top-left corner. She stays in the flow (auto bottom
+       margin soaks up the free space), so a short hero pushes the text down
+       instead of overlapping it. */
     .hero-moon {
-      position: absolute;
-      z-index: 1;
-      margin: 0;
+      position: relative;
+      align-self: flex-start;
       width: calc(var(--cat-w) * 0.42);
-      right: calc(max(48px, 100% - 1148px) + var(--cat-w) * 0.97);
-      bottom: -2px;
+      margin: 0 0 auto;
+      padding-bottom: 32px;
       animation: rise 1.6s 0.35s cubic-bezier(.2, .7, .2, 1) both;
     }
     .hero-moon img { display: block; width: 100%; height: auto; }
-    .hero-moon figcaption { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); margin-bottom: 6px; white-space: nowrap; }
+    .hero-moon figcaption { position: absolute; left: calc(100% + 12px); bottom: calc(32px + 12%); white-space: nowrap; }
     .about-grid { display: grid; grid-template-columns: 1fr 220px; gap: 40px; align-items: end; }
     .about-photo { margin: 0; }
     .about-photo img { display: block; width: 100%; height: auto; border-radius: 12px; }
@@ -322,7 +323,8 @@
       .brand { font-size: 12px; }
       .hero { padding: 56px 16px 0; min-height: 0; justify-content: flex-start; }
       .hero { --cat-w: min(62vw, 300px); }
-      .hero-moon { left: 16px; right: auto; width: calc(var(--cat-w) * 0.48); }
+      .hero-moon { width: calc(var(--cat-w) * 0.48); padding-bottom: 24px; }
+      .hero-moon figcaption { bottom: calc(24px + 12%); }
       .hero-cat { --w: var(--cat-w); position: relative; right: auto; bottom: auto; align-self: flex-end; margin: 32px 0 calc(var(--w) * -0.135); }
       .about-grid { grid-template-columns: 1fr; gap: 28px; }
       .about-photo { max-width: 220px; }
@@ -383,6 +385,10 @@
   </nav>
 
   <header class="hero" id="top">
+    <figure class="hero-moon">
+      <img src="assets/cat-box.webp" width="900" height="613" alt="Moon Moon, a black cat with amber eyes curled up in a fabric storage box">
+      <figcaption class="label">Moon Moon</figcaption>
+    </figure>
     <div class="meta">
       <div><span class="label">Currently</span><strong>PhD Student, Emory University</strong></div>
       <div><span class="label">Based in</span><strong>Atlanta, GA</strong></div>
@@ -399,10 +405,6 @@
     <figure class="hero-cat">
       <img src="assets/cat-shelf.webp" width="1100" height="599" alt="Coco, a black cat lying on a ledge with one paw hanging over the edge">
       <figcaption class="label">Coco</figcaption>
-    </figure>
-    <figure class="hero-moon">
-      <img src="assets/cat-box.webp" width="900" height="613" alt="Moon Moon, a black cat with amber eyes curled up in a fabric storage box">
-      <figcaption class="label">Moon Moon</figcaption>
     </figure>
   </header>
 
