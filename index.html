@@ -157,11 +157,15 @@
     .hero-cat img { display: block; width: 100%; height: auto; }
     .hero-cat figcaption { position: absolute; top: 12%; left: 38%; }
     .about-grid { display: grid; grid-template-columns: 1fr 220px; gap: 40px; align-items: end; }
-    .about-cat { margin: 0; }
-    .about-cat img { display: block; width: 100%; height: auto; }
-    .about-cat figcaption { margin-top: 8px; text-align: center; }
+    .about-photo { margin: 0; }
+    .about-photo img { display: block; width: 100%; height: auto; border-radius: 12px; }
     footer { position: relative; }
-    .footer-cats { position: absolute; bottom: 100%; right: 48px; height: 96px; width: auto; }
+    /* Cats sitting on the footer rule */
+    .footer-pets { position: absolute; bottom: 100%; right: 48px; display: flex; align-items: flex-end; gap: 20px; }
+    .footer-pets figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .footer-pets img { display: block; width: auto; }
+    .footer-moon img { height: 64px; }
+    .footer-pair { height: 96px; }
     @keyframes rise {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: none; }
@@ -310,8 +314,10 @@
       .hero { padding: 56px 16px 0; min-height: 0; justify-content: flex-start; }
       .hero-cat { --w: min(82vw, 380px); position: relative; right: auto; bottom: auto; align-self: flex-end; margin: 32px 0 calc(var(--w) * -0.135); }
       .about-grid { grid-template-columns: 1fr; gap: 28px; }
-      .about-cat { max-width: 220px; }
-      .footer-cats { right: 16px; height: 72px; }
+      .about-photo { max-width: 220px; }
+      .footer-pets { right: 16px; gap: 14px; }
+      .footer-moon img { height: 48px; }
+      .footer-pair { height: 72px; }
       .meta { gap: 28px; }
       main { padding: 0 16px; }
       section { grid-template-columns: 1fr; gap: 16px; padding: 52px 0; }
@@ -328,7 +334,7 @@
 
     /* Print: a clean one-page résumé */
     @media print {
-      body::before, .bar, nav, .hero-cat, .about-cat, .hero::before, .hero .btn, footer { display: none !important; }
+      body::before, .bar, nav, .hero-cat, .about-photo, .hero::before, .hero .btn, footer { display: none !important; }
       body { background: #fff; font-size: 11pt; }
       .hero { min-height: 0; padding: 0 0 12pt; }
       h1 { font-size: 28pt; }
@@ -402,9 +408,8 @@
           at NJIT and UPenn in microbiome analysis, cancer genomics, and single-cell modeling.
         </p>
         </div>
-        <figure class="about-cat">
-          <img src="assets/cat-box.webp" width="900" height="613" loading="lazy" alt="Moon Moon, a black cat with amber eyes curled up in a fabric storage box">
-          <figcaption class="label">Moon Moon · Lab assistant</figcaption>
+        <figure class="about-photo">
+          <img src="assets/portrait.webp" width="640" height="763" loading="lazy" alt="Portrait of Tianxing Hu under a cherry blossom tree">
         </figure>
         </div>
       </div>
@@ -669,7 +674,13 @@
   </main>
 
   <footer>
-    <img class="footer-cats" src="assets/cats-window.webp" width="480" height="582" loading="lazy" alt="Two black cats seen from behind, sitting side by side">
+    <div class="footer-pets">
+      <figure class="footer-moon">
+        <figcaption class="label">Moon Moon</figcaption>
+        <img src="assets/cat-box.webp" width="900" height="613" loading="lazy" alt="Moon Moon, a black cat with amber eyes curled up in a fabric storage box">
+      </figure>
+      <img class="footer-pair" src="assets/cats-window.webp" width="480" height="582" loading="lazy" alt="Two black cats seen from behind, sitting side by side">
+    </div>
     <span class="label">© 2026 Tianxing Hu</span>
     <span class="label"><a href="Tianxing_Hu_CV.pdf" target="_blank" rel="noopener">CV</a> · <a href="mailto:tianxinghu1213@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/tianxing-hu-ai">LinkedIn</a> · <a href="https://scholar.google.com/citations?user=0fQ4kbgAAAAJ">Google Scholar</a></span>
   </footer>
