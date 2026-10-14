@@ -124,6 +124,7 @@
 
     /* Hero */
     .hero {
+      --cat-w: clamp(260px, 34vw, 500px);
       position: relative;
       min-height: min(72vh, 680px);
       display: flex;
@@ -145,7 +146,7 @@
     /* Cat lying on the rule under the hero: the image is 1100x599, and
        dropping it by 0.135 of its width puts the rule just under its chin. */
     .hero-cat {
-      --w: clamp(260px, 34vw, 500px);
+      --w: var(--cat-w);
       position: absolute;
       z-index: 1;
       width: var(--w);
@@ -156,16 +157,24 @@
     }
     .hero-cat img { display: block; width: 100%; height: auto; }
     .hero-cat figcaption { position: absolute; top: 12%; left: 38%; }
+    /* Moon Moon sits on the same rule, just left of Coco's head */
+    .hero-moon {
+      position: absolute;
+      z-index: 1;
+      margin: 0;
+      width: calc(var(--cat-w) * 0.42);
+      right: calc(max(48px, 100% - 1148px) + var(--cat-w) * 0.97);
+      bottom: -2px;
+      animation: rise 1.6s 0.35s cubic-bezier(.2, .7, .2, 1) both;
+    }
+    .hero-moon img { display: block; width: 100%; height: auto; }
+    .hero-moon figcaption { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); margin-bottom: 6px; white-space: nowrap; }
     .about-grid { display: grid; grid-template-columns: 1fr 220px; gap: 40px; align-items: end; }
     .about-photo { margin: 0; }
     .about-photo img { display: block; width: 100%; height: auto; border-radius: 12px; }
     footer { position: relative; }
     /* Cats sitting on the footer rule */
-    .footer-pets { position: absolute; bottom: 100%; right: 48px; display: flex; align-items: flex-end; gap: 20px; }
-    .footer-pets figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-    .footer-pets img { display: block; width: auto; }
-    .footer-moon img { height: 64px; }
-    .footer-pair { height: 96px; }
+    .footer-pair { position: absolute; bottom: 100%; right: 48px; height: 96px; width: auto; }
     @keyframes rise {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: none; }
@@ -312,12 +321,12 @@
       .actions .btn:not(.solid) { display: none; }
       .brand { font-size: 12px; }
       .hero { padding: 56px 16px 0; min-height: 0; justify-content: flex-start; }
-      .hero-cat { --w: min(82vw, 380px); position: relative; right: auto; bottom: auto; align-self: flex-end; margin: 32px 0 calc(var(--w) * -0.135); }
+      .hero { --cat-w: min(62vw, 300px); }
+      .hero-moon { left: 16px; right: auto; width: calc(var(--cat-w) * 0.48); }
+      .hero-cat { --w: var(--cat-w); position: relative; right: auto; bottom: auto; align-self: flex-end; margin: 32px 0 calc(var(--w) * -0.135); }
       .about-grid { grid-template-columns: 1fr; gap: 28px; }
       .about-photo { max-width: 220px; }
-      .footer-pets { right: 16px; gap: 14px; }
-      .footer-moon img { height: 48px; }
-      .footer-pair { height: 72px; }
+      .footer-pair { right: 16px; height: 72px; }
       .meta { gap: 28px; }
       main { padding: 0 16px; }
       section { grid-template-columns: 1fr; gap: 16px; padding: 52px 0; }
@@ -328,13 +337,13 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .hero-cat { animation: none; }
+      .hero-cat, .hero-moon { animation: none; }
       html { scroll-behavior: auto; }
     }
 
     /* Print: a clean one-page résumé */
     @media print {
-      body::before, .bar, nav, .hero-cat, .about-photo, .hero::before, .hero .btn, footer { display: none !important; }
+      body::before, .bar, nav, .hero-cat, .hero-moon, .about-photo, .hero::before, .hero .btn, footer { display: none !important; }
       body { background: #fff; font-size: 11pt; }
       .hero { min-height: 0; padding: 0 0 12pt; }
       h1 { font-size: 28pt; }
@@ -390,6 +399,10 @@
     <figure class="hero-cat">
       <img src="assets/cat-shelf.webp" width="1100" height="599" alt="Coco, a black cat lying on a ledge with one paw hanging over the edge">
       <figcaption class="label">Coco</figcaption>
+    </figure>
+    <figure class="hero-moon">
+      <img src="assets/cat-box.webp" width="900" height="613" alt="Moon Moon, a black cat with amber eyes curled up in a fabric storage box">
+      <figcaption class="label">Moon Moon</figcaption>
     </figure>
   </header>
 
@@ -674,13 +687,7 @@
   </main>
 
   <footer>
-    <div class="footer-pets">
-      <figure class="footer-moon">
-        <figcaption class="label">Moon Moon</figcaption>
-        <img src="assets/cat-box.webp" width="900" height="613" loading="lazy" alt="Moon Moon, a black cat with amber eyes curled up in a fabric storage box">
-      </figure>
-      <img class="footer-pair" src="assets/cats-window.webp" width="480" height="582" loading="lazy" alt="Two black cats seen from behind, sitting side by side">
-    </div>
+    <img class="footer-pair" src="assets/cats-window.webp" width="480" height="582" loading="lazy" alt="Two black cats seen from behind, sitting side by side">
     <span class="label">© 2026 Tianxing Hu</span>
     <span class="label"><a href="Tianxing_Hu_CV.pdf" target="_blank" rel="noopener">CV</a> · <a href="mailto:tianxinghu1213@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/tianxing-hu-ai">LinkedIn</a> · <a href="https://scholar.google.com/citations?user=0fQ4kbgAAAAJ">Google Scholar</a></span>
   </footer>
