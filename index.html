@@ -142,18 +142,20 @@
         radial-gradient(ellipse 35% 50% at 92% 90%, var(--sage), transparent 70%);
       opacity: 0.9;
     }
-    /* Cat lying on the rule under the hero: its flat belly sits at 68% of the
-       image height (aspect 1100x599), so drop it by 32% of its height. */
+    /* Cat lying on the rule under the hero: the image is 1100x599, and
+       dropping it by 0.135 of its width puts the rule just under its chin. */
     .hero-cat {
       --w: clamp(260px, 34vw, 500px);
       position: absolute;
       z-index: 1;
       width: var(--w);
-      height: auto;
+      margin: 0;
       right: max(48px, calc(100% - 1148px));
       bottom: calc(var(--w) * -0.135);
       animation: rise 1.6s cubic-bezier(.2, .7, .2, 1) both;
     }
+    .hero-cat img { display: block; width: 100%; height: auto; }
+    .hero-cat figcaption { position: absolute; top: 12%; left: 38%; }
     .about-grid { display: grid; grid-template-columns: 1fr 220px; gap: 40px; align-items: end; }
     .about-cat { margin: 0; }
     .about-cat img { display: block; width: 100%; height: auto; }
@@ -374,7 +376,10 @@
       <li><a href="https://github.com/banana1o1" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
     <div><a class="btn" href="#research">View my research ↓</a></div>
-    <img class="hero-cat" src="assets/cat-shelf.webp" width="1100" height="599" alt="A black cat lying on a ledge, one paw hanging over the edge">
+    <figure class="hero-cat">
+      <img src="assets/cat-shelf.webp" width="1100" height="599" alt="Coco, a black cat lying on a ledge with one paw hanging over the edge">
+      <figcaption class="label">Coco</figcaption>
+    </figure>
   </header>
 
   <main>
@@ -393,8 +398,8 @@
         </p>
         </div>
         <figure class="about-cat">
-          <img src="assets/cat-box.webp" width="900" height="613" loading="lazy" alt="A black cat with amber eyes curled up in a fabric storage box">
-          <figcaption class="label">Lab assistant · unpaid</figcaption>
+          <img src="assets/cat-box.webp" width="900" height="613" loading="lazy" alt="Moon Moon, a black cat with amber eyes curled up in a fabric storage box">
+          <figcaption class="label">Moon Moon · Lab assistant</figcaption>
         </figure>
         </div>
       </div>
