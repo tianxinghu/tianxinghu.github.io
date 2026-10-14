@@ -287,6 +287,13 @@
     }
     footer em { font-family: var(--sans); text-transform: none; letter-spacing: 0; }
 
+    .brand, .btn { white-space: nowrap; }
+
+    /* Not enough room for every section link next to the buttons */
+    @media (max-width: 1280px) {
+      .links { display: none; }
+    }
+
     /* Tablet & phone */
     @media (max-width: 860px) {
       nav { padding: 14px 16px; gap: 16px; }
@@ -344,6 +351,7 @@
       <a href="#experience">Experience</a>
       <a href="#education">Education</a>
       <a href="#teaching">Teaching</a>
+      <a href="#service">Service</a>
       <a href="#skills">Skills</a>
     </div>
     <div class="actions">
@@ -414,10 +422,6 @@
         <li>
           <div class="label date">2026</div>
           <p>Our survey <a href="https://doi.org/10.1093/bib/bbag332" target="_blank" rel="noopener"><em>Transformers for Single-Cell Sequencing</em></a> is published in Briefings in Bioinformatics.</p>
-        </li>
-        <li>
-          <div class="label date">2026</div>
-          <p><a href="https://arxiv.org/abs/2504.16956" target="_blank" rel="noopener"><em>GeneMamba</em></a> accepted to IJCNN 2026; <a href="https://peerj.com/articles/20980/" target="_blank" rel="noopener"><em>LANTERN</em></a> published in PeerJ; <a href="https://link.springer.com/article/10.1186/s12943-026-02622-9" target="_blank" rel="noopener">melanoma resistance study</a> published in Molecular Cancer.</p>
         </li>
       </ul>
     </section>
@@ -605,8 +609,30 @@
       </div>
     </section>
 
+    <section id="service">
+      <div class="label"><span>08</span>Service</div>
+      <div>
+        <article class="entry">
+          <div class="label date">Peer review</div>
+          <div>
+            <h3>Peer Reviewer</h3>
+            <div class="org">Journals</div>
+            <ul>
+              <li><em>Bioinformatics</em></li>
+              <li><em>Bioinformatics Advances</em></li>
+              <li><em>Nucleic Acids Research</em></li>
+              <li><em>Briefings in Bioinformatics</em></li>
+              <li><em>Transactions on Machine Learning Research</em></li>
+              <li><em>IEEE Transactions on Systems, Man, and Cybernetics: Systems</em></li>
+              <li><em>Statistical Applications in Genetics and Molecular Biology</em></li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <section id="skills">
-      <div class="label"><span>08</span>Skills</div>
+      <div class="label"><span>09</span>Skills</div>
       <div class="skills">
         <div class="row">
           <div class="label">Research</div>
