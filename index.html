@@ -241,6 +241,13 @@
     }
     a.card:hover { border-color: var(--ink); transform: translateY(-2px); }
     .entry .tags { margin-top: 12px; }
+    .news { list-style: none; margin: 0; padding: 0; }
+    .news li { display: grid; grid-template-columns: 150px 1fr; gap: 24px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+    .news li:first-child { padding-top: 0; }
+    .news li:last-child { border-bottom: 0; }
+    .news .date { padding-top: 4px; }
+    .news p { margin: 0; color: #33353f; }
+    .news a { text-underline-offset: 3px; }
     .pubs { list-style: none; margin: 0; padding: 0; }
     .pub { display: grid; grid-template-columns: 150px 1fr; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--rule); }
     .pub:first-child { padding-top: 0; }
@@ -293,7 +300,7 @@
       .meta { gap: 28px; }
       main { padding: 0 16px; }
       section { grid-template-columns: 1fr; gap: 16px; padding: 52px 0; }
-      .entry, .pub, .skills .row { grid-template-columns: 1fr; gap: 6px; }
+      .entry, .pub, .news li, .skills .row { grid-template-columns: 1fr; gap: 6px; }
       .projects { grid-template-columns: 1fr; }
       footer { padding: 32px 16px 48px; }
       .bar { padding: 10px 16px; }
@@ -330,6 +337,7 @@
     <a class="brand" href="#top"><span class="dot"></span>Tianxing Hu</a>
     <div class="links">
       <a href="#about">About</a>
+      <a href="#news">News</a>
       <a href="#research">Research</a>
       <a href="#publications">Publications</a>
       <a href="#experience">Experience</a>
@@ -383,8 +391,38 @@
       </div>
     </section>
 
+    <section id="news">
+      <div class="label"><span>02</span>News</div>
+      <ul class="news">
+        <li>
+          <div class="label date">2026</div>
+          <p>Submitted <em>Context-specific benchmarking of foundation models for gene network inference</em> to ICLR 2027 (under review).</p>
+        </li>
+        <li>
+          <div class="label date">Sep 2026</div>
+          <p>Started my Ph.D. in Computer Science and Informatics at Emory University.</p>
+        </li>
+        <li>
+          <div class="label date">May 2026</div>
+          <p>Graduated from NJIT with an M.S. in Data Science (GPA 4.0, ranked 1/65).</p>
+        </li>
+        <li>
+          <div class="label date">2026</div>
+          <p><em>Cross-tissue Graph Attention Networks for Semisupervised Gene Expression Prediction</em> accepted to Briefings in Bioinformatics.</p>
+        </li>
+        <li>
+          <div class="label date">2026</div>
+          <p>Our survey <a href="https://doi.org/10.1093/bib/bbag332" target="_blank" rel="noopener"><em>Transformers for Single-Cell Sequencing</em></a> is published in Briefings in Bioinformatics.</p>
+        </li>
+        <li>
+          <div class="label date">2026</div>
+          <p><a href="https://arxiv.org/abs/2504.16956" target="_blank" rel="noopener"><em>GeneMamba</em></a> accepted to IJCNN 2026; <a href="https://peerj.com/articles/20980/" target="_blank" rel="noopener"><em>LANTERN</em></a> published in PeerJ; <a href="https://link.springer.com/article/10.1186/s12943-026-02622-9" target="_blank" rel="noopener">melanoma resistance study</a> published in Molecular Cancer.</p>
+        </li>
+      </ul>
+    </section>
+
     <section id="research">
-      <div class="label"><span>02</span>Research</div>
+      <div class="label"><span>03</span>Research</div>
       <div class="projects">
         <div class="card">
           <span class="label">Single-cell · Multi-omics</span>
@@ -410,7 +448,7 @@
     </section>
 
     <section id="publications">
-      <div class="label"><span>03</span>Publications</div>
+      <div class="label"><span>04</span>Publications</div>
       <ol class="pubs">
         <li class="pub">
           <div class="label date">2026</div>
@@ -448,7 +486,7 @@
     </section>
 
     <section id="experience">
-      <div class="label"><span>04</span>Experience</div>
+      <div class="label"><span>05</span>Experience</div>
       <div>
         <article class="entry">
           <div class="label date">Sep 2026 — Present</div>
@@ -498,7 +536,7 @@
     </section>
 
     <section id="education">
-      <div class="label"><span>05</span>Education</div>
+      <div class="label"><span>06</span>Education</div>
       <div>
         <article class="entry">
           <div class="label date">2026 — 2031</div>
@@ -532,7 +570,7 @@
     </section>
 
     <section id="teaching">
-      <div class="label"><span>06</span>Teaching</div>
+      <div class="label"><span>07</span>Teaching</div>
       <div>
         <article class="entry">
           <div class="label date">Sep 2023 — Jan 2026</div>
@@ -551,7 +589,7 @@
     </section>
 
     <section id="skills">
-      <div class="label"><span>07</span>Skills</div>
+      <div class="label"><span>08</span>Skills</div>
       <div class="skills">
         <div class="row">
           <div class="label">Research</div>
