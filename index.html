@@ -175,7 +175,13 @@
     .about-photo img { display: block; width: 100%; height: auto; border-radius: 12px; }
     footer { position: relative; }
     /* Cats sitting on the footer rule */
-    .footer-pair { position: absolute; bottom: 100%; right: 48px; height: 96px; width: auto; }
+    /* The two cats on the footer rule double as a back-to-top link */
+    .footer-pair { position: absolute; bottom: 100%; right: 48px; display: block; text-decoration: none; }
+    .footer-pair img { display: block; height: 96px; width: auto; transition: transform 0.25s cubic-bezier(.2, .7, .2, 1); }
+    .footer-pair:hover img, .footer-pair:focus-visible img { transform: translateY(-6px); }
+    .footer-pair .label { position: absolute; right: calc(100% + 10px); bottom: 12px; white-space: nowrap; opacity: 0; transition: opacity 0.2s; }
+    .footer-pair:hover .label, .footer-pair:focus-visible .label { opacity: 1; }
+    .footer-pair:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; border-radius: 4px; }
     @keyframes rise {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: none; }
@@ -328,7 +334,8 @@
       .hero-cat { --w: var(--cat-w); position: relative; right: auto; bottom: auto; align-self: flex-end; margin: 32px 0 calc(var(--w) * -0.135); }
       .about-grid { grid-template-columns: 1fr; gap: 28px; }
       .about-photo { max-width: 220px; }
-      .footer-pair { right: 16px; height: 72px; }
+      .footer-pair { right: 16px; }
+      .footer-pair img { height: 72px; }
       .meta { gap: 28px; }
       main { padding: 0 16px; }
       section { grid-template-columns: 1fr; gap: 16px; padding: 52px 0; }
@@ -678,7 +685,10 @@
   </main>
 
   <footer>
-    <img class="footer-pair" src="assets/cats-window.webp" width="480" height="582" loading="lazy" alt="Two black cats seen from behind, sitting side by side">
+    <a class="footer-pair" href="#" aria-label="Back to top">
+      <span class="label" aria-hidden="true">Back to top ↑</span>
+      <img src="assets/cats-window.webp" width="480" height="582" loading="lazy" alt="">
+    </a>
     <span class="label">© 2026 Tianxing Hu</span>
     <span class="label"><a href="Tianxing_Hu_CV.pdf" target="_blank" rel="noopener">CV</a> · <a href="mailto:tianxinghu1213@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/tianxing-hu-ai">LinkedIn</a> · <a href="https://scholar.google.com/citations?user=0fQ4kbgAAAAJ">Google Scholar</a></span>
   </footer>
