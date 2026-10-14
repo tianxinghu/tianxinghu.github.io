@@ -171,8 +171,7 @@
     .hero-moon img { display: block; width: 100%; height: auto; }
     .hero-moon figcaption { position: absolute; left: calc(100% + 12px); bottom: calc(32px + 12%); white-space: nowrap; }
     .about-grid { display: grid; grid-template-columns: 1fr 220px; gap: 40px; align-items: start; }
-    /* top of the photo lines up with the first paragraph, below the h2 */
-    .about-photo { margin: 54px 0 0; }
+    .about-photo { margin: 0; }
     .about-photo img { display: block; width: 100%; height: auto; border-radius: 12px; }
     footer { position: relative; }
     /* Cats sitting on the footer rule */
@@ -352,7 +351,7 @@
       .hero-moon figcaption { bottom: calc(24px + 12%); }
       .hero-cat { --w: var(--cat-w); position: relative; right: auto; bottom: auto; align-self: flex-end; margin: 32px 0 calc(var(--w) * -0.135); }
       .about-grid { grid-template-columns: 1fr; gap: 28px; }
-      .about-photo { max-width: 220px; margin-top: 0; }
+      .about-photo { max-width: 220px; }
       .footer-pair { right: 16px; }
       .footer-pair img { height: 72px; }
       .meta { gap: 28px; }
@@ -445,7 +444,6 @@
       <div>
         <div class="about-grid">
         <div>
-        <h2>Hello — I'm Tianxing.</h2>
         <p class="lede">
           I am a PhD student in Computer Science and Informatics at Emory University, working at the
           intersection of machine learning and computational biology.
