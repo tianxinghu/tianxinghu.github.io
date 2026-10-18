@@ -778,5 +778,54 @@
   </footer>
   <!-- Privacy-friendly visit counts (no cookies): https://tianxinghu.goatcounter.com -->
   <script data-goatcounter="https://tianxinghu.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+  <script>
+    // GoatCounter events: which sections people reach, and which profile/CV links they click.
+    (function () {
+      // count.js loads async, so retry briefly if it isn't ready yet
+      function track(path, title, tries) {
+        if (window.goatcounter && window.goatcounter.count) {
+          window.goatcounter.count({ path: path, title: title, event: true });
+        } else if ((tries || 0) < 20) {
+          setTimeout(function () { track(path, title, (tries || 0) + 1); }, 500);
+        }
+      }
+
+      // Once per page load, when a section crosses the middle of the screen
+      // (works however tall the section is, e.g. long sections on phones)
+      if ('IntersectionObserver' in window) {
+        var seen = {};
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            var id = e.target.id;
+            if (e.isIntersecting && !seen[id]) {
+              seen[id] = true;
+              io.unobserve(e.target);
+              track('section-' + id, 'Section: ' + id);
+            }
+          });
+        }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+        document.querySelectorAll('main section[id]').forEach(function (el) { io.observe(el); });
+      }
+
+      // Clicks on CV, email and profile links, wherever they appear on the page
+      var targets = [
+        ['click-cv', /Tianxing_Hu_CV\.pdf/],
+        ['click-email', /^mailto:/],
+        ['click-linkedin', /linkedin\.com/],
+        ['click-scholar', /scholar\.google\.com/],
+        ['click-gneval', /GNEval-benchmark/],
+        ['click-github', /github\.com\/tianxinghu\/?$/],
+        ['click-paper', /doi\.org|arxiv\.org|peerj\.com|link\.springer\.com/]
+      ];
+      document.addEventListener('click', function (ev) {
+        var a = ev.target.closest && ev.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href');
+        for (var i = 0; i < targets.length; i++) {
+          if (targets[i][1].test(href)) { track(targets[i][0], 'Click: ' + targets[i][0].slice(6)); break; }
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
