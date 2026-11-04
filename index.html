@@ -61,7 +61,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --paper: #f4f1ec;
+      --paper: #ffffff;
       --ink: #1c1d22;
       --ink-soft: #55586a;
       --ink-faint: #8e90a0;
@@ -84,18 +84,6 @@
       font-size: 17px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-    }
-
-    /* Paper grain over the whole page */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 100;
-      opacity: 0.35;
-      mix-blend-mode: multiply;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45  0 0 0 0 0.42  0 0 0 0 0.38  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
     }
 
     a { color: inherit; }
@@ -151,7 +139,6 @@
     .links { display: flex; gap: 24px; font-size: 14px; }
     .links a { text-decoration: none; padding-bottom: 3px; }
     .links a:hover { border-bottom: 1px solid var(--ink); }
-    .actions { margin-left: auto; display: flex; gap: 10px; }
 
     .btn {
       display: inline-block;
@@ -236,7 +223,8 @@
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: none; }
     }
-    .hero-cta { margin-top: 28px; }
+    /* Buttons wrap before they reach Coco (the hero cat on the right) */
+    .hero-cta { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; max-width: calc(100% - var(--cat-w) - 32px); }
     .meta { display: flex; flex-wrap: wrap; gap: 20px 48px; margin-bottom: 28px; }
     .meta div { display: flex; flex-direction: column; gap: 4px; }
     .meta strong { font-weight: 500; font-size: 15px; }
@@ -249,17 +237,49 @@
     }
 
     /* Sections */
-    main { padding: 0 48px; }
+    main { padding: 0 48px; overflow-x: clip; } /* clip full-width bands */
     section {
       display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 32px;
+      grid-template-columns: 1fr;
+      gap: 40px;
       padding: 72px 0;
       border-top: 1px solid var(--rule);
-      max-width: 1100px;
+      max-width: 1000px;
+      margin: 0 auto;
       scroll-margin-top: 120px;
     }
-    section > .label span { color: var(--accent); margin-right: 8px; }
+    /* Education: full-width light-gold wash, deeper at the top, fading to white */
+    #education { position: relative; z-index: 0; }
+    #education::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 100vw;
+      transform: translateX(-50%);
+      background: linear-gradient(#f8edd5, var(--paper));
+    }
+    /* Section title: small gold number above a large centred heading */
+    section > .label {
+      font-family: var(--sans);
+      font-size: clamp(28px, 3.2vw, 40px);
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+      text-transform: none;
+      color: var(--ink);
+      text-align: center;
+    }
+    section > .label span {
+      display: block;
+      margin-bottom: 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+    }
     h2 {
       margin: 0 0 16px;
       font-size: 32px;
@@ -289,9 +309,8 @@
     /* Research vision panel */
     .vision {
       padding: 36px 36px 28px;
-      border: 1px solid var(--rule);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.35);
+      border-radius: 28px;
+      background: #fcf7ec; /* light gold card, echoes the hero glow */
     }
     .vision-head, .vision-base { text-align: center; }
     .vision-head h3 { margin: 8px 0 6px; font-size: 26px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.25; }
@@ -316,6 +335,20 @@
     .vision-legend i { display: inline-block; width: 22px; height: 12px; border-radius: 999px; }
     .vision-legend .k-project { border: 1px solid var(--ink-soft); background: rgba(255, 255, 255, 0.6); }
     .vision-legend .k-theme { border: 1px dashed var(--ink-faint); }
+
+    /* Figure abstract under a publication; click opens the full-size viewer */
+    .pub-fig { display: block; margin-top: 14px; padding: 12px; max-width: 640px; border: 1px solid var(--rule); border-radius: 12px; background: #fff; cursor: zoom-in; transition: border-color 0.2s; }
+    .pub-fig:hover { border-color: var(--ink-faint); }
+    .pub-fig:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+    .pub-fig img { display: block; width: 100%; height: auto; }
+
+    /* Full-size figure viewer */
+    .figview { width: fit-content; max-width: 94vw; max-height: 94vh; padding: 0; border: 0; border-radius: 16px; background: var(--paper); overflow: hidden; }
+    .figview::backdrop { background: rgba(28, 29, 34, 0.6); }
+    /* Fit the whole figure on screen, wide or tall (64px leaves room for the caption bar) */
+    .figview img { display: block; width: auto; height: auto; max-width: min(1400px, 94vw); max-height: calc(94vh - 64px); margin: 0 auto; }
+    .figview .figview-bar { display: flex; align-items: center; gap: 16px; padding: 14px 20px; border-top: 1px solid var(--rule); font-size: 14px; }
+    .figview .figview-bar p { margin: 0; flex: 1; color: var(--ink-soft); }
     .entry .tags { margin-top: 12px; }
     .news { list-style: none; margin: 0; padding: 0; }
     .news li { display: grid; grid-template-columns: 150px 1fr; gap: 24px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
@@ -363,18 +396,22 @@
 
     .brand, .btn { white-space: nowrap; }
 
-    /* Two-row nav: name + buttons on top, section links on their own row
-       (scrollable if they still overflow) */
+    /* Desktop: name left, section links right on one row (scrollable if
+       they overflow). Phones put the links on their own row, see below. */
     nav { flex-wrap: wrap; row-gap: 10px; }
-    .links { order: 3; width: 100%; overflow-x: auto; scrollbar-width: none; }
+    .links { margin-left: auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
     .links::-webkit-scrollbar { display: none; }
     .links a { flex-shrink: 0; white-space: nowrap; }
+    /* Not enough room beside the name: links get their own row */
+    @media (max-width: 1000px) {
+      .links { margin-left: 0; width: 100%; }
+    }
 
     /* Tablet & phone */
     @media (max-width: 860px) {
       nav { padding: 14px 16px; gap: 16px; row-gap: 8px; }
       .links { gap: 20px; font-size: 13px; }
-      .actions .btn:not(.solid) { display: none; }
+      .hero-cta { max-width: none; }
       .brand { font-size: 12px; }
       .hero { padding: 56px 16px 0; min-height: 0; justify-content: flex-start; }
       .hero { --cat-w: min(62vw, 300px); }
@@ -387,7 +424,7 @@
       .footer-pair img { height: 72px; }
       .meta { gap: 28px; }
       main { padding: 0 16px; }
-      section { grid-template-columns: 1fr; gap: 16px; padding: 52px 0; }
+      section { gap: 28px; padding: 52px 0; }
       .entry, .pub, .news li, .skills .row { grid-template-columns: 1fr; gap: 6px; }
       .vision { padding: 24px 18px 20px; }
       .vision-head h3 { font-size: 22px; }
@@ -404,12 +441,14 @@
 
     /* Print: a clean one-page résumé */
     @media print {
-      body::before, .bar, nav, .hero-cat, .hero-moon, .about-photo, .hero::before, .hero .btn, footer { display: none !important; }
+      #education::before, .pub-fig, .figview, .bar, nav, .hero-cat, .hero-moon, .about-photo, .hero::before, .hero .btn, footer { display: none !important; }
       body { background: #fff; font-size: 11pt; }
       .hero { min-height: 0; padding: 0 0 12pt; }
       h1 { font-size: 28pt; }
       main { padding: 0; }
-      section { padding: 12pt 0; gap: 12pt; grid-template-columns: 110pt 1fr; break-inside: avoid; }
+      section { padding: 12pt 0; gap: 8pt; break-inside: avoid; }
+      section > .label { font-size: 14pt; text-align: left; }
+      section > .label span { display: inline; margin: 0 6pt 0 0; font-size: 9pt; }
       h2 { font-size: 14pt; margin-bottom: 6pt; }
       .lede { font-size: 11pt; }
       .entry { padding: 6pt 0; grid-template-columns: 90pt 1fr; }
@@ -437,12 +476,6 @@
       <a href="#service">Service</a>
       <a href="#skills">Skills</a>
     </div>
-    <div class="actions">
-      <a class="btn" href="https://www.linkedin.com/in/tianxing-hu-ai" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn" href="https://scholar.google.com/citations?user=0fQ4kbgAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
-      <a class="btn" href="Tianxing_Hu_CV.pdf" target="_blank" rel="noopener">Curriculum Vitae</a>
-      <a class="btn solid" href="mailto:tianxinghu1213@gmail.com">Get in touch</a>
-    </div>
   </nav>
 
   <header class="hero" id="top">
@@ -456,7 +489,13 @@
       <div><span class="label">Research interests</span><strong>Foundation Models · Multi-modal Learning · Statistical Modeling</strong></div>
     </div>
     <h1>Tianxing Hu</h1>
-    <div class="hero-cta"><a class="btn" href="#research">View my research</a></div>
+    <div class="hero-cta">
+      <a class="btn" href="#research">View my research</a>
+      <a class="btn" href="https://www.linkedin.com/in/tianxing-hu-ai" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://scholar.google.com/citations?user=0fQ4kbgAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+      <a class="btn" href="Tianxing_Hu_CV.pdf" target="_blank" rel="noopener">Curriculum Vitae</a>
+      <a class="btn solid" href="mailto:tianxinghu1213@gmail.com">Get in touch</a>
+    </div>
     <figure class="hero-cat">
       <img src="assets/cat-shelf.webp" width="1100" height="599" alt="Coco, a black cat lying on a ledge with one paw hanging over the edge">
       <figcaption class="label">Coco</figcaption>
@@ -497,7 +536,7 @@
       <ul class="news">
         <li>
           <div class="label date">Oct 2026</div>
-          <p><a href="https://doi.org/10.1093/bib/bbag557" target="_blank" rel="noopener"><em>Cross-tissue Graph Attention Networks for Semisupervised Gene Expression Prediction</em></a> published in Briefings in Bioinformatics.</p>
+          <p>Our paper <a href="https://doi.org/10.1093/bib/bbag557" target="_blank" rel="noopener"><em>Cross-tissue graph attention networks for semi-supervised gene expression prediction</em></a> has been published in <em>Briefings in Bioinformatics</em>.</p>
         </li>
         <li>
           <div class="label date">Sep 2026</div>
@@ -505,7 +544,7 @@
         </li>
         <li>
           <div class="label date">Jun 2026</div>
-          <p>Our survey <a href="https://doi.org/10.1093/bib/bbag332" target="_blank" rel="noopener"><em>Transformers for Single-Cell Sequencing</em></a> is published in Briefings in Bioinformatics.</p>
+          <p>Our survey <a href="https://doi.org/10.1093/bib/bbag332" target="_blank" rel="noopener"><em>Transformers for single-cell sequencing</em></a> has been published in <em>Briefings in Bioinformatics</em>.</p>
         </li>
         <li>
           <div class="label date">May 2026</div>
@@ -518,9 +557,8 @@
       <div class="label"><span>03</span>Research</div>
       <div class="vision">
         <div class="vision-head">
-          <span class="label">Overarching research vision</span>
+          <span class="label">Research map</span>
           <h3>Reliable and Generalizable Machine Learning for Biological Data</h3>
-          <p>Representation Learning · Generalization · Biological Inference</p>
         </div>
         <div class="pillars">
         <div class="pillar">
@@ -578,6 +616,9 @@
             <h3>Context-specific benchmarking of foundation models for gene network inference</h3>
             <p class="authors"><b>Tianxing Hu</b>, Weiwei Wu, Zhaohui S. Qin, Chang Su</p>
             <p class="venue">ICLR 2027 (under review)<span class="badge">First author</span><span class="badge muted">Under review</span></p>
+            <a class="pub-fig" href="assets/gneval.webp" data-fig="GNEval: context-specific benchmarking of foundation models for gene network inference">
+              <img src="assets/gneval.webp" width="2000" height="877" loading="lazy" alt="GNEval overview: 14 Perturb-seq datasets across cell types feed foundation and embedding models (scGPT, Geneformer, scFoundation and others) plus domain baselines; static embeddings, contextual embeddings and attention scores become gene-gene score matrices and inferred gene networks, evaluated for functional and perturbational consistency and analysed for robustness, generalizability, efficiency and rank stability.">
+            </a>
           </div>
         </li>
         <li class="pub">
@@ -586,6 +627,9 @@
             <h3><a href="https://doi.org/10.1093/bib/bbag557" target="_blank" rel="noopener">Cross-tissue graph attention networks for semi-supervised gene expression prediction ↗</a></h3>
             <p class="authors">Shiyu Wang, <b>Tianxing Hu</b>, Mengyu He, Muran Qin, Yijuan Hu, Liang Zhao, Zhaohui Qin</p>
             <p class="venue">Briefings in Bioinformatics, bbag557</p>
+            <a class="pub-fig" href="assets/gemgat.webp" data-fig="GemGAT: cross-tissue graph attention networks for semi-supervised gene expression prediction">
+              <img src="assets/gemgat.webp" width="2612" height="664" loading="lazy" alt="GemGAT overview: genes are extracted from tissues, co-expression networks are built for source and target tissues, and a graph attention model encodes the source tissue's expression and network to predict expression in the target tissue.">
+            </a>
           </div>
         </li>
         <li class="pub">
@@ -776,6 +820,10 @@
     <span class="label">© 2026 Tianxing Hu</span>
     <span class="label"><a href="Tianxing_Hu_CV.pdf" target="_blank" rel="noopener">CV</a> · <a href="mailto:tianxinghu1213@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/tianxing-hu-ai">LinkedIn</a> · <a href="https://scholar.google.com/citations?user=0fQ4kbgAAAAJ">Google Scholar</a> · <a href="https://github.com/tianxinghu">GitHub</a></span>
   </footer>
+  <dialog class="figview" aria-label="Figure">
+    <img src="" alt="">
+    <div class="figview-bar"><p></p><button class="btn" type="button" data-close>Close</button></div>
+  </dialog>
   <!-- Privacy-friendly visit counts (no cookies): https://tianxinghu.goatcounter.com -->
   <script data-goatcounter="https://tianxinghu.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
   <script>
@@ -825,6 +873,27 @@
           if (targets[i][1].test(href)) { track(targets[i][0], 'Click: ' + targets[i][0].slice(6)); break; }
         }
       });
+    })();
+  </script>
+  <script>
+    // Figure abstracts: open the full-size image in a dialog (plain link if JS/dialog is unavailable)
+    (function () {
+      var dlg = document.querySelector('.figview');
+      if (!dlg || typeof dlg.showModal !== 'function') return;
+      var img = dlg.querySelector('img'), cap = dlg.querySelector('p');
+      document.querySelectorAll('[data-fig]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          var thumb = a.querySelector('img');
+          img.src = a.getAttribute('href');
+          img.alt = thumb ? thumb.alt : '';
+          cap.textContent = a.getAttribute('data-fig');
+          dlg.showModal();
+        });
+      });
+      dlg.querySelector('[data-close]').addEventListener('click', function () { dlg.close(); });
+      // Click on the dimmed backdrop closes it
+      dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
     })();
   </script>
 </body>
